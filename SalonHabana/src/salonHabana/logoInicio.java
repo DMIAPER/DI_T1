@@ -63,9 +63,8 @@ public final class logoInicio extends JFrame{
             v++;
         }
         if(v==51){  
-            //AppTienda in = new AppTienda();
-            //in.setVisible(true);
-            System.out.println("Hola que tal");
+            Principal pri = new Principal();
+            pri.setVisible(true);
         }
         //fin del metodo countdown
     }
