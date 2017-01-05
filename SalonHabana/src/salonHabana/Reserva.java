@@ -5,12 +5,13 @@
  */
 package salonHabana;
 
+import java.awt.BorderLayout;
 import java.util.Calendar;
 import java.util.Date;
+import javax.swing.JSlider;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerDateModel;
 import javax.swing.SpinnerModel;
-import javax.swing.SpinnerNumberModel;
 
 /**
  *
@@ -20,15 +21,17 @@ public class Reserva extends javax.swing.JDialog {
 
     /**
      * Creates new form Principal
+     * @param parent
+     * @param modal
      */
     public Reserva(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         
         initComponents();
         setLocationRelativeTo(null);//Centrar formula
-        confiSpinner();
-        grupoBotones();
-        
+        grupoBotones();  
+        configSpinner();
+        seleccion();
     }
     
     private void grupoBotones(){
@@ -37,25 +40,32 @@ public class Reserva extends javax.swing.JDialog {
         opciones.add(jRCongreso);
     }
        
-    private void confiSpinner(){
+    private void configSpinner(){
         
         Calendar calendario = Calendar.getInstance();
+
+        calendario.add(Calendar.DATE, 1);
         
-        //Obtenemos una fecha de inicio, será la fecha actual del sistema
         Date inicio = calendario.getTime();
-        //Indicamos año hasta +10 del actual
-        calendario.add(Calendar.YEAR, 10);
-        //Guardamos la configuración en un DATE
-        Date fechaPosterior = calendario.getTime();
-        //Usamos el contructor de abajo para crear un modelo para el Spinner
-        //SpinnerDateModel(Date value, Comparable start, Comparable end, int calendarField)
-        //Utilizamos los datos que creamos más arriba
-        //Para fecha utilizamos Calendar.YEAR y para hora Calendar.HOUR, el resto puede ser igual
-        SpinnerModel fechaModel = new SpinnerDateModel(inicio, inicio, fechaPosterior, Calendar.YEAR);
-        //Indicamos el model para cada Spinner además del formato de fecha y hora según corresponda.
+                
+        SpinnerModel fechaModel = new SpinnerDateModel(inicio, null, null, Calendar.YEAR);
+
         jSpFecha.setModel(fechaModel);
-        jSpFecha.setEditor(new JSpinner.DateEditor(jSpFecha, "dd-MM-yyyy"));
         
+        jSpFecha.setEditor(new JSpinner.DateEditor(jSpFecha, "dd-MM-yyyy"));
+    }
+    
+    private void seleccion(){
+  
+        seleccion.setMinorTickSpacing(2);
+        seleccion.setMajorTickSpacing(10);
+        seleccion.setPaintTicks(true);
+        seleccion.setPaintLabels(true);
+
+    // We'll just use the standard numeric labels for now...
+        seleccion.setLabelTable(seleccion.createStandardLabels(10));
+
+        add(seleccion, BorderLayout.CENTER);
     }
     
     /**
@@ -84,12 +94,13 @@ public class Reserva extends javax.swing.JDialog {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        seleccion = new javax.swing.JSlider();
 
         setTitle("Reservas");
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBackground(new java.awt.Color(51, 153, 255));
 
-        jLabel1.setFont(new java.awt.Font("Swis721 Blk BT", 0, 12)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Baskerville Old Face", 1, 14)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Realice su reserva para cualquiera de nuestros salones");
 
@@ -97,16 +108,16 @@ public class Reserva extends javax.swing.JDialog {
 
         jLabel3.setText("Teléfono de contacto:");
 
-        jRBanquete.setBackground(new java.awt.Color(255, 255, 255));
+        jRBanquete.setBackground(new java.awt.Color(51, 153, 255));
         jRBanquete.setSelected(true);
         jRBanquete.setText("Banquete");
         jRBanquete.setToolTipText("Seleccionara la opción banquete");
 
-        jRJornada.setBackground(new java.awt.Color(255, 255, 255));
+        jRJornada.setBackground(new java.awt.Color(51, 153, 255));
         jRJornada.setText("Jornada");
         jRJornada.setToolTipText("Seleccionara la opción jornada");
 
-        jRCongreso.setBackground(new java.awt.Color(255, 255, 255));
+        jRCongreso.setBackground(new java.awt.Color(51, 153, 255));
         jRCongreso.setText("Congreso");
         jRCongreso.setToolTipText("Seleccionara la opción congreso");
         jRCongreso.addActionListener(new java.awt.event.ActionListener() {
@@ -119,11 +130,11 @@ public class Reserva extends javax.swing.JDialog {
 
         jLabel4.setText("Fecha de reserva:");
 
-        jLabel5.setFont(new java.awt.Font("Swis721 Blk BT", 0, 12)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Baskerville Old Face", 1, 14)); // NOI18N
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("Seleccione el tipo de evento que quiere realizar");
 
-        jLabel6.setFont(new java.awt.Font("Swis721 Blk BT", 0, 12)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Baskerville Old Face", 1, 14)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setText("Datos de contacto");
 
@@ -146,17 +157,21 @@ public class Reserva extends javax.swing.JDialog {
                         .addComponent(jTNomApe))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jRCongreso)
-                            .addComponent(jRJornada)
-                            .addComponent(jRBanquete)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel3)
                                     .addComponent(jLabel4))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jSpFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jSpFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jRBanquete)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jRCongreso)
+                                    .addComponent(jRJornada))
+                                .addGap(42, 42, 42)
+                                .addComponent(seleccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -188,12 +203,17 @@ public class Reserva extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jRBanquete)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jRJornada)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jRCongreso)
-                .addGap(33, 33, 33)
-                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(112, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jRJornada)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jRCongreso)
+                        .addGap(33, 33, 33)
+                        .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(seleccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(113, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -233,5 +253,6 @@ public class Reserva extends javax.swing.JDialog {
     private javax.swing.JTextField jTNomApe;
     private javax.swing.JTextField jTextField1;
     private javax.swing.ButtonGroup opciones;
+    private javax.swing.JSlider seleccion;
     // End of variables declaration//GEN-END:variables
 }
