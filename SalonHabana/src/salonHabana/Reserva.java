@@ -5,10 +5,8 @@
  */
 package salonHabana;
 
-import java.awt.BorderLayout;
 import java.util.Calendar;
 import java.util.Date;
-import javax.swing.JSlider;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerDateModel;
 import javax.swing.SpinnerModel;
@@ -21,51 +19,62 @@ public class Reserva extends javax.swing.JDialog {
 
     /**
      * Creates new form Principal
-     * @param parent
-     * @param modal
      */
     public Reserva(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-        
         initComponents();
-        setLocationRelativeTo(null);//Centrar formula
-        grupoBotones();  
-        configSpinner();
-        seleccion();
+        setLocationRelativeTo(null);//Centrar
+        confiSpinner();
+        grupoBotones();
+        gurpoCo();
+        grupoHabi();
+        int num = jSNumPer.getValue();
+        jTfNumPer.setText(Integer.toString(num));
+               
     }
     
+    //grupo de botones de tipo de evento
     private void grupoBotones(){
         opciones.add(jRBanquete);
         opciones.add(jRJornada);
         opciones.add(jRCongreso);
     }
-       
-    private void configSpinner(){
-        
-        Calendar calendario = Calendar.getInstance();
-
-        calendario.add(Calendar.DATE, 1);
-        
-        Date inicio = calendario.getTime();
-                
-        SpinnerModel fechaModel = new SpinnerDateModel(inicio, null, null, Calendar.YEAR);
-
-        jSpFecha.setModel(fechaModel);
-        
-        jSpFecha.setEditor(new JSpinner.DateEditor(jSpFecha, "dd-MM-yyyy"));
-    }
     
-    private void seleccion(){
-  
-        seleccion.setMinorTickSpacing(2);
-        seleccion.setMajorTickSpacing(10);
-        seleccion.setPaintTicks(true);
-        seleccion.setPaintLabels(true);
-
-    // We'll just use the standard numeric labels for now...
-        seleccion.setLabelTable(seleccion.createStandardLabels(10));
-
-        add(seleccion, BorderLayout.CENTER);
+    //grupo de botone de tipo Cocina
+    private void gurpoCo(){
+        grupoCocinas.add(jRBufe);
+        grupoCocinas.add(jRCarta);
+        grupoCocinas.add(jRCita);
+        grupoCocinas.add(jRNo);
+    }
+           
+    //grupo de botones de tipo habitaciones
+    private void grupoHabi(){
+        grupoHabitaciones.add(jRSiHa);
+        grupoHabitaciones.add(jRNoHa);
+    }
+       
+    //formato de spinner para seleccionar la fecha
+    private void confiSpinner(){
+      
+        //instanciamos una variable calendario
+        Calendar calendario = Calendar.getInstance();
+        
+        //Obtenemos una fecha de inicio, será la fecha actual del sistema
+        Date inicio = calendario.getTime();
+        //Indicamos año hasta +10 del actual
+        calendario.add(Calendar.YEAR, 10);
+        //Guardamos la configuración en un DATE
+        Date fechaPosterior = calendario.getTime();
+        //Usamos el contructor de abajo para crear un modelo para el Spinner
+        //SpinnerDateModel(Date value, Comparable start, Comparable end, int calendarField)
+        //Utilizamos los datos que creamos más arriba
+        //Para fecha utilizamos Calendar.YEAR y para hora Calendar.HOUR, el resto puede ser igual
+        SpinnerModel fechaModel = new SpinnerDateModel(inicio, null, fechaPosterior, Calendar.YEAR);
+        //Indicamos el model para cada Spinner además del formato de fecha y hora según corresponda.
+        jSpFecha.setModel(fechaModel);
+        jSpFecha.setEditor(new JSpinner.DateEditor(jSpFecha, "dd-MM-yyyy"));
+        
     }
     
     /**
@@ -78,6 +87,8 @@ public class Reserva extends javax.swing.JDialog {
     private void initComponents() {
 
         opciones = new javax.swing.ButtonGroup();
+        grupoCocinas = new javax.swing.ButtonGroup();
+        grupoHabitaciones = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
@@ -87,37 +98,74 @@ public class Reserva extends javax.swing.JDialog {
         jRJornada = new javax.swing.JRadioButton();
         jRCongreso = new javax.swing.JRadioButton();
         jTNomApe = new javax.swing.JTextField();
-        jTextField1 = new javax.swing.JTextField();
+        jTTelefono = new javax.swing.JTextField();
         jSeparator2 = new javax.swing.JSeparator();
         jSeparator3 = new javax.swing.JSeparator();
         jSpFecha = new javax.swing.JSpinner();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        seleccion = new javax.swing.JSlider();
+        jSNumPer = new javax.swing.JSlider();
+        jTfNumPer = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jRBufe = new javax.swing.JRadioButton();
+        jRCarta = new javax.swing.JRadioButton();
+        jRCita = new javax.swing.JRadioButton();
+        jRNo = new javax.swing.JRadioButton();
+        jBReserva = new javax.swing.JButton();
+        jSeparator4 = new javax.swing.JSeparator();
+        jPCongresos = new javax.swing.JPanel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jSpConDias = new javax.swing.JSpinner();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jRSiHa = new javax.swing.JRadioButton();
+        jRNoHa = new javax.swing.JRadioButton();
+        jLabel13 = new javax.swing.JLabel();
+        jSpNumHabi = new javax.swing.JSpinner();
+        jLabel14 = new javax.swing.JLabel();
+        jSeparator5 = new javax.swing.JSeparator();
+        jLabel15 = new javax.swing.JLabel();
 
         setTitle("Reservas");
 
-        jPanel1.setBackground(new java.awt.Color(51, 153, 255));
+        jPanel1.setBackground(new java.awt.Color(0, 153, 204));
 
-        jLabel1.setFont(new java.awt.Font("Baskerville Old Face", 1, 14)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Realice su reserva para cualquiera de nuestros salones");
 
+        jLabel2.setFont(new java.awt.Font("Calibri", 3, 12)); // NOI18N
         jLabel2.setText("Nombre y apellidos:");
 
+        jLabel3.setFont(new java.awt.Font("Calibri", 3, 12)); // NOI18N
         jLabel3.setText("Teléfono de contacto:");
 
-        jRBanquete.setBackground(new java.awt.Color(51, 153, 255));
+        jRBanquete.setBackground(new java.awt.Color(0, 153, 204));
+        jRBanquete.setFont(new java.awt.Font("Calibri", 3, 12)); // NOI18N
         jRBanquete.setSelected(true);
         jRBanquete.setText("Banquete");
         jRBanquete.setToolTipText("Seleccionara la opción banquete");
+        jRBanquete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRBanqueteActionPerformed(evt);
+            }
+        });
 
-        jRJornada.setBackground(new java.awt.Color(51, 153, 255));
+        jRJornada.setBackground(new java.awt.Color(0, 153, 204));
+        jRJornada.setFont(new java.awt.Font("Calibri", 3, 12)); // NOI18N
         jRJornada.setText("Jornada");
         jRJornada.setToolTipText("Seleccionara la opción jornada");
+        jRJornada.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRJornadaActionPerformed(evt);
+            }
+        });
 
-        jRCongreso.setBackground(new java.awt.Color(51, 153, 255));
+        jRCongreso.setBackground(new java.awt.Color(0, 153, 204));
+        jRCongreso.setFont(new java.awt.Font("Calibri", 3, 12)); // NOI18N
         jRCongreso.setText("Congreso");
         jRCongreso.setToolTipText("Seleccionara la opción congreso");
         jRCongreso.addActionListener(new java.awt.event.ActionListener() {
@@ -126,54 +174,253 @@ public class Reserva extends javax.swing.JDialog {
             }
         });
 
-        jTextField1.setText("+34");
+        jTNomApe.setFont(new java.awt.Font("Calibri", 3, 12)); // NOI18N
 
+        jTTelefono.setFont(new java.awt.Font("Calibri", 3, 12)); // NOI18N
+        jTTelefono.setText("+34");
+
+        jSpFecha.setFont(new java.awt.Font("Calibri", 3, 12)); // NOI18N
+
+        jLabel4.setFont(new java.awt.Font("Calibri", 3, 12)); // NOI18N
         jLabel4.setText("Fecha de reserva:");
 
-        jLabel5.setFont(new java.awt.Font("Baskerville Old Face", 1, 14)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("Seleccione el tipo de evento que quiere realizar");
 
-        jLabel6.setFont(new java.awt.Font("Baskerville Old Face", 1, 14)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setText("Datos de contacto");
+
+        jSNumPer.setBackground(new java.awt.Color(0, 153, 204));
+        jSNumPer.setFont(new java.awt.Font("Calibri", 3, 12)); // NOI18N
+        jSNumPer.setMajorTickSpacing(25);
+        jSNumPer.setMaximum(250);
+        jSNumPer.setMinorTickSpacing(5);
+        jSNumPer.setPaintLabels(true);
+        jSNumPer.setPaintTicks(true);
+        jSNumPer.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jSNumPerStateChanged(evt);
+            }
+        });
+
+        jTfNumPer.setFont(new java.awt.Font("Calibri", 3, 12)); // NOI18N
+        jTfNumPer.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jTfNumPer.setDisabledTextColor(new java.awt.Color(51, 51, 51));
+        jTfNumPer.setEnabled(false);
+
+        jLabel7.setFont(new java.awt.Font("Calibri", 3, 12)); // NOI18N
+        jLabel7.setText("Personas");
+
+        jLabel8.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel8.setText("¿Necesita de nuestras cocinas?");
+
+        jRBufe.setBackground(new java.awt.Color(0, 153, 204));
+        jRBufe.setFont(new java.awt.Font("Calibri", 3, 12)); // NOI18N
+        jRBufe.setSelected(true);
+        jRBufe.setText("Bufé");
+        jRBufe.setToolTipText("Seleccione bufé, para solicitarlo para su evento");
+
+        jRCarta.setBackground(new java.awt.Color(0, 153, 204));
+        jRCarta.setFont(new java.awt.Font("Calibri", 3, 12)); // NOI18N
+        jRCarta.setText("Carta");
+        jRCarta.setToolTipText("Seleccione Carta, para solicitarlo para su evento");
+
+        jRCita.setBackground(new java.awt.Color(0, 153, 204));
+        jRCita.setFont(new java.awt.Font("Calibri", 3, 12)); // NOI18N
+        jRCita.setText("Cita con nuestro Chef");
+        jRCita.setToolTipText("Seleccione cita con el Chef, para que le asignen una entrevista con nuestro Chef");
+
+        jRNo.setBackground(new java.awt.Color(0, 153, 204));
+        jRNo.setFont(new java.awt.Font("Calibri", 3, 12)); // NOI18N
+        jRNo.setText("No preciso");
+        jRNo.setToolTipText("No se realizara ningun tipo de comida para su evento");
+
+        jBReserva.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        jBReserva.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/pluma.png"))); // NOI18N
+        jBReserva.setText("Reservar");
+        jBReserva.setToolTipText("Se registrara la reserva");
+
+        jPCongresos.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jPCongresos.setFocusable(false);
+
+        jLabel9.setFont(new java.awt.Font("Calibri", 3, 12)); // NOI18N
+        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel9.setText("Duración del congreso");
+        jLabel9.setOpaque(true);
+
+        jLabel10.setFont(new java.awt.Font("Calibri", 3, 12)); // NOI18N
+        jLabel10.setText("Indique los dias que durara el congreso: ");
+
+        jSpConDias.setFont(new java.awt.Font("Calibri", 3, 12)); // NOI18N
+        jSpConDias.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
+        jSpConDias.setEnabled(false);
+
+        jLabel11.setFont(new java.awt.Font("Calibri", 3, 12)); // NOI18N
+        jLabel11.setText("Días");
+
+        jLabel12.setFont(new java.awt.Font("Calibri", 3, 12)); // NOI18N
+        jLabel12.setText("Se necesita habitaciones, para el congreso:");
+
+        jRSiHa.setFont(new java.awt.Font("Calibri", 3, 12)); // NOI18N
+        jRSiHa.setText("Si");
+        jRSiHa.setToolTipText("Habilitara la opción de seleccionar el número de habitaciones necesarias");
+        jRSiHa.setEnabled(false);
+        jRSiHa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRSiHaActionPerformed(evt);
+            }
+        });
+
+        jRNoHa.setFont(new java.awt.Font("Calibri", 3, 12)); // NOI18N
+        jRNoHa.setSelected(true);
+        jRNoHa.setText("No");
+        jRNoHa.setToolTipText("No dejara seleccionar ningun número de habitaciones");
+        jRNoHa.setEnabled(false);
+        jRNoHa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRNoHaActionPerformed(evt);
+            }
+        });
+
+        jLabel13.setFont(new java.awt.Font("Calibri", 3, 12)); // NOI18N
+        jLabel13.setText("Se precisan ");
+
+        jSpNumHabi.setFont(new java.awt.Font("Calibri", 3, 12)); // NOI18N
+        jSpNumHabi.setModel(new javax.swing.SpinnerNumberModel(1, 1, 250, 1));
+        jSpNumHabi.setToolTipText("Seleccione un número de habitaciones");
+        jSpNumHabi.setEnabled(false);
+
+        jLabel14.setFont(new java.awt.Font("Calibri", 3, 12)); // NOI18N
+        jLabel14.setText("habitaciones");
+
+        javax.swing.GroupLayout jPCongresosLayout = new javax.swing.GroupLayout(jPCongresos);
+        jPCongresos.setLayout(jPCongresosLayout);
+        jPCongresosLayout.setHorizontalGroup(
+            jPCongresosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPCongresosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPCongresosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPCongresosLayout.createSequentialGroup()
+                        .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(jPCongresosLayout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addGroup(jPCongresosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPCongresosLayout.createSequentialGroup()
+                                .addComponent(jLabel13)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jSpNumHabi, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel14))
+                            .addGroup(jPCongresosLayout.createSequentialGroup()
+                                .addGroup(jPCongresosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel12)
+                                    .addComponent(jLabel10))
+                                .addGap(28, 28, 28)
+                                .addGroup(jPCongresosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(jPCongresosLayout.createSequentialGroup()
+                                        .addGap(14, 14, 14)
+                                        .addComponent(jRSiHa)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jRNoHa))
+                                    .addGroup(jPCongresosLayout.createSequentialGroup()
+                                        .addComponent(jSpConDias, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jLabel11)))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addGroup(jPCongresosLayout.createSequentialGroup()
+                .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        jPCongresosLayout.setVerticalGroup(
+            jPCongresosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPCongresosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(2, 2, 2)
+                .addGroup(jPCongresosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(jSpConDias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel11))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPCongresosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel12)
+                    .addComponent(jRSiHa)
+                    .addComponent(jRNoHa))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPCongresosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel13)
+                    .addComponent(jSpNumHabi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel14))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jLabel15.setFont(new java.awt.Font("Calibri", 3, 12)); // NOI18N
+        jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel15.setText("Seleccione el número de personas que asistiran");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSeparator4)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jRCongreso)
+                            .addComponent(jRJornada))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jTfNumPer, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel7))
+                            .addComponent(jSNumPer, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(15, 15, 15))
+                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jSeparator3)
-                    .addComponent(jSeparator1)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jSeparator2)
                     .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPCongresos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(22, 22, 22)
-                        .addComponent(jTNomApe))
+                        .addComponent(jRBanquete)
+                        .addGap(60, 60, 60)
+                        .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jBReserva))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel4))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jSpFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jRBanquete)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jRCongreso)
-                                    .addComponent(jRJornada))
-                                .addGap(42, 42, 42)
-                                .addComponent(seleccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel2))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTNomApe, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jSpFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addComponent(jSeparator1)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jRBufe)
+                .addGap(18, 18, 18)
+                .addComponent(jRCarta)
+                .addGap(18, 18, 18)
+                .addComponent(jRCita)
+                .addGap(18, 18, 18)
+                .addComponent(jRNo)
+                .addGap(34, 34, 34))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -191,7 +438,7 @@ public class Reserva extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
@@ -200,20 +447,39 @@ public class Reserva extends javax.swing.JDialog {
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(5, 5, 5)
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jRBanquete)
+                .addGap(11, 11, 11)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel15)
+                    .addComponent(jRBanquete))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jRJornada)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jRCongreso)
-                        .addGap(33, 33, 33)
-                        .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addComponent(seleccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(113, Short.MAX_VALUE))
+                        .addComponent(jRCongreso))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jSNumPer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTfNumPer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7))))
+                .addGap(18, 18, 18)
+                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel8)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jRBufe)
+                    .addComponent(jRCarta)
+                    .addComponent(jRCita)
+                    .addComponent(jRNo))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPCongresos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(jBReserva)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -230,29 +496,85 @@ public class Reserva extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    //se habilitan los botenes Seleccion de dias, Si necesita habitacion si o no
     private void jRCongresoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRCongresoActionPerformed
-        // TODO add your handling code here:
+        jSpConDias.setEnabled(true);
+        jRSiHa.setEnabled(true);
+        jRNoHa.setEnabled(true);
     }//GEN-LAST:event_jRCongresoActionPerformed
+
+    //se deshabilitan los botenes Seleccion de dias, Si necesita habitacion si o no
+    private void jRJornadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRJornadaActionPerformed
+        jSpConDias.setEnabled(false);
+        jRSiHa.setEnabled(false);
+        jRNoHa.setEnabled(false);
+    }//GEN-LAST:event_jRJornadaActionPerformed
+//se deshabilitan los botenes Seleccion de dias, Si necesita habitacion si o no
+    private void jRBanqueteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRBanqueteActionPerformed
+        jSpConDias.setEnabled(false);
+        jRSiHa.setEnabled(false);
+        jRNoHa.setEnabled(false);
+    }//GEN-LAST:event_jRBanqueteActionPerformed
+    
+    //Se cambia el valor del panel de número de personas
+    private void jSNumPerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSNumPerStateChanged
+        int num = jSNumPer.getValue();
+        jTfNumPer.setText(Integer.toString(num));
+    }//GEN-LAST:event_jSNumPerStateChanged
+
+    //se habilita el spinner para seleccionar el número de habitaciones
+    private void jRSiHaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRSiHaActionPerformed
+        jSpNumHabi.setEnabled(true);
+    }//GEN-LAST:event_jRSiHaActionPerformed
+
+    //se deshabilita el spinner para seleccionar el número de habitaciones
+    private void jRNoHaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRNoHaActionPerformed
+        jSpNumHabi.setEnabled(false);
+    }//GEN-LAST:event_jRNoHaActionPerformed
 
    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup grupoCocinas;
+    private javax.swing.ButtonGroup grupoHabitaciones;
+    private javax.swing.JButton jBReserva;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPCongresos;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JRadioButton jRBanquete;
+    private javax.swing.JRadioButton jRBufe;
+    private javax.swing.JRadioButton jRCarta;
+    private javax.swing.JRadioButton jRCita;
     private javax.swing.JRadioButton jRCongreso;
     private javax.swing.JRadioButton jRJornada;
+    private javax.swing.JRadioButton jRNo;
+    private javax.swing.JRadioButton jRNoHa;
+    private javax.swing.JRadioButton jRSiHa;
+    private javax.swing.JSlider jSNumPer;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JSeparator jSeparator4;
+    private javax.swing.JSeparator jSeparator5;
+    private javax.swing.JSpinner jSpConDias;
     private javax.swing.JSpinner jSpFecha;
+    private javax.swing.JSpinner jSpNumHabi;
     private javax.swing.JTextField jTNomApe;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTTelefono;
+    private javax.swing.JTextField jTfNumPer;
     private javax.swing.ButtonGroup opciones;
-    private javax.swing.JSlider seleccion;
     // End of variables declaration//GEN-END:variables
 }

@@ -23,6 +23,7 @@ public final class logoInicio extends JFrame{
     public logoInicio(){
        Logo();
        cargar();
+       setLocationRelativeTo(null);//Centrar 
     }
     
     //Metodo para crear el logo del programa
@@ -35,15 +36,12 @@ public final class logoInicio extends JFrame{
     }
     //Metodo main del programa
     public void cargar(){
-        Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
-        
-        
+
         //estas opciones de la variable sirven para generar la pantalla
         this.setUndecorated(true);         
         this.setVisible(true);
         this.setBounds(0, 0, 800, 600);
-        Dimension ventana = this.getSize();
-        this.setLocation(((pantalla.width - ventana.width)/2), ((pantalla.height-ventana.height)/2));
+        this.setLocationRelativeTo(null);//Centrar 
         
         //Con este metodo se pone el fondo en transparente 
         try{			
